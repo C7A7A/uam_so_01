@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1579218062 source:/home/mateusz/Desktop/studia/SO/ProjektMicroshell/main.c
+	<unistd.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<sys/types.h>
+	<sys/wait.h>
+	<errno.h>
+
