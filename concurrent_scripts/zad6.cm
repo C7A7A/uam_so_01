@@ -1,0 +1,27 @@
+binarysem sem;
+binarysem semCon;
+int i = 1;
+
+void printPow(int x){
+    int counter = 0;
+    for(; i < 41;){
+        wait(sem);
+	if(i < 41){
+	    cout << i*i << endl;
+	    counter++;
+	}
+	i++;
+	signal(sem);
+    }
+    wait(semCon);
+    cout << "(" << x << ")Contribution: " << counter << endl;
+    signal(semCon);
+}
+
+main(){
+    initialsem(sem, 1);
+    initialsem(semCon, 1);
+    cobegin{
+        printPow(1); printPow(2); printPow(3); printPow(4);
+    }
+}

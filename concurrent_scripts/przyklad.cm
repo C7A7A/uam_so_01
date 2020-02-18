@@ -1,0 +1,23 @@
+monitor simple_monitor 
+{
+    void say_hello (char id) 
+    { 
+        cout << "Hi! I am a process!" << endl; 
+        cout << "My ID is: " << id << endl;
+        cout << "Bye!" << endl;
+    } 
+} 
+
+void process_hello(char id)
+{ 
+    say_hello(id); 
+} 
+
+main() 
+{ 
+    cobegin 
+    { 
+        process_hello('A'); process_hello('B'); process_hello('C'); 
+    } 
+    cout << "All processes finished" << endl; 
+}

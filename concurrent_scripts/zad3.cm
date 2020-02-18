@@ -1,0 +1,20 @@
+binarysem print_semaphore;
+
+void hello (char id) 
+{
+    wait(print_semaphore);
+    cout << "Hi! I am a process!" << endl; 
+    cout << "My ID is: " << id << endl;
+    cout << "Bye!" << endl;
+    signal(print_semaphore);
+}
+
+main() 
+{
+    initialsem(print_semaphore,1);
+    cobegin  { 
+        hello('A'); hello('B'); hello('C');
+    } 
+
+    cout << "All processes finished" << endl; 
+}

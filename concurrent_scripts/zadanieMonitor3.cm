@@ -1,0 +1,64 @@
+monitor prod_con_monitor 
+
+{ 
+    int value; 
+    int is_new_value; 
+    condition cond_produced, cond_consumed; 
+
+
+    void add (int v) 
+    { 
+        if(is_new_value == 1) 
+        { 
+            waitc(cond_consumed); 
+        } 
+        value = v; 
+        is_new_value = 1; 
+        signalc(cond_produced); 
+    } 
+    int get () 
+    { 
+        int v; 
+        if(is_new_value == 0) 
+        { 
+            waitc(cond_produced); 
+        } 
+        v = value; 
+        is_new_value = 0; 
+        signalc(cond_consumed); 
+        return v; 
+    } 
+
+    init 
+    { 
+        value = 0; 
+        is_new_value = 0; 
+    } 
+} 
+
+void producer()  
+{ 
+    int i, number; 
+    for(i = 1; i <= 10; i++) 
+    { 
+        number = random(100); 
+        add(number); 
+    } 
+} 
+
+void consumer()  
+{ 
+    int i, number; 
+    for(i = 1; i <= 10; i++) 
+    { 
+        number = get(); 
+        cout << "Number " << i << ": " << number << endl; 
+    } 
+} 
+
+main()  
+{ 
+    cobegin  {  
+        consumer(); producer(); 
+    }  
+} 

@@ -1,0 +1,126 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zadanieMonitor3.cm  Fri Dec  6 13:14:04 2019
+ line  pc
+   1    0  monitor prod_con_monitor 
+   2    0  
+   3    0  { 
+   4    0  
+   5    0      int value; 
+   6    0  
+   7    0      int is_new_value; 
+   8    0  
+   9    0      condition cond_produced, cond_consumed; 
+  10    0  
+  11    0    
+  12    0  
+  13    0      void add (int v) 
+  14    1  
+  15    1      { 
+  16    1  
+  17    1          if(is_new_value == 1) 
+  18    5  
+  19    5          { 
+  20    5  
+  21    5              waitc(cond_consumed); 
+  22    8  
+  23    8          } 
+  24    8  
+  25    8          value = v; 
+  26   11  
+  27   11          is_new_value = 1; 
+  28   14  
+  29   14          signalc(cond_produced); 
+  30   16  
+  31   16      } 
+  32   18  
+  33   18      int get () 
+  34   19  
+  35   19      { 
+  36   19  
+  37   19          int v; 
+  38   19  
+  39   19          if(is_new_value == 0) 
+  40   23  
+  41   23          { 
+  42   23  
+  43   23              waitc(cond_produced); 
+  44   26  
+  45   26          } 
+  46   26  
+  47   26          v = value; 
+  48   29  
+  49   29          is_new_value = 0; 
+  50   32  
+  51   32          signalc(cond_consumed); 
+  52   34  
+  53   34          return v; 
+  54   38  
+  55   38      } 
+  56   40  
+  57   40    
+  58   40  
+  59   40      init 
+  60   40  
+  61   40      { 
+  62   40  
+  63   40          value = 0; 
+  64   43  
+  65   43          is_new_value = 0; 
+  66   46  
+  67   46      } 
+  68   47  
+  69   47  } 
+  70   47  
+  71   47    
+  72   47  
+  73   47  void producer()  
+  74   47  
+  75   47  { 
+  76   47  
+  77   47      int i, number; 
+  78   47  
+  79   47      for(i = 1; i <= 10; i++) 
+  80   61  
+  81   61      { 
+  82   61  
+  83   61          number = random(100); 
+  84   65  
+  85   65          add(number); 
+  86   69  
+  87   69      } 
+  88   70  
+  89   70  } 
+  90   71  
+  91   71    
+  92   71  
+  93   71  void consumer()  
+  94   71  
+  95   71  { 
+  96   71  
+  97   71      int i, number; 
+  98   71  
+  99   71      for(i = 1; i <= 10; i++) 
+ 100   85  
+ 101   85      { 
+ 102   85  
+ 103   85          number = get(); 
+ 104   90  
+ 105   90          cout << "Number " << i << ": " << number << endl; 
+ 106   97  
+ 107   97      } 
+ 108   98  
+ 109   98  } 
+ 110   99  
+ 111   99    
+ 112   99  
+ 113   99  main()  
+ 114  100  
+ 115  100  { 
+ 116  100  
+ 117  100      cobegin  {  
+ 118  101  
+ 119  101          consumer(); producer(); 
+ 120  107  
+ 121  107      }  
+ 122  108  
+ 123  108  } 

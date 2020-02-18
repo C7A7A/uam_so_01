@@ -1,0 +1,15 @@
+void hello (char id) 
+{
+    cout << "Hi! I am a process!" << endl; 
+    cout << "My ID is: " << id << endl;
+    cout << "Bye!" << endl;
+}
+
+main() 
+{
+    cobegin  { 
+        hello('A'); hello('B'); hello('C');
+    } 
+
+    cout << "All processes finished" << endl; 
+}

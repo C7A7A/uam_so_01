@@ -1,0 +1,29 @@
+semaphore produkuj;
+semaphore konsumuj;
+int produkt[10];
+
+producent(){
+	int licznik = 0;
+	while(true){
+		wait(produkuj);
+		produkt[licznik%10] = random(20);
+		licznik++;
+		signal(konsumuj);
+	}
+}
+
+konsument(){
+	int licznik = 0;
+	while(true){
+		wait(konsumuj);
+		cout << produkt[licznik%10] << endl;
+		licznik++;
+		signal(produkuj);
+	}
+}
+
+void main(){
+	initialsem(produkuj, 10);
+	initialsem(pusto, 0);
+	cobegin{ producent(); konsument(); }
+}

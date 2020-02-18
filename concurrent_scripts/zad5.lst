@@ -1,0 +1,25 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad5.cm  Fri Dec  6 16:05:30 2019
+ line  pc
+   1    0  semaphore sem; 
+   2    0  int liczba1, liczba2; 
+   3    0  
+   4    0  void randomNumber(int x){ 
+   5    0      x = random(100); 
+   6    4      signal(sem); 
+   7    6  } 
+   8    7  
+   9    7  void printSum(){ 
+  10    7      wait(sem); 
+  11    9      wait(sem); 
+  12   11      cout << liczba1 + liczba2 << endl; 
+  13   16  } 
+  14   17  
+  15   17  main(){ 
+  16   18      initialsem(sem,0); 
+  17   21      cobegin{ 
+  18   22          randomNumber(liczba1); randomNumber(liczba2); printSum(); 
+  19   33      } 
+  20   34  
+  21   34  } 
+  22   36  

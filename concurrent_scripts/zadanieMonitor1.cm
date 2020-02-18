@@ -1,0 +1,38 @@
+monitor monitor_with_variables
+{
+    int sum;
+    void incrementMonitor(){
+        int i;
+        for(i = 0; i < 5; i++){
+            sum++;
+        }
+    }
+
+    void writeSumMonitor(){
+        cout << sum << endl;
+    }
+    // blok init musi być zawsze na samym końcu kodu monitora!
+    init 
+    { 
+        sum = 0;
+    } 
+}
+
+void increment(){
+    incrementMonitor(); 
+}
+
+void writeSum(){
+   writeSumMonitor();
+}
+
+int main()
+{
+    int sum;
+    cobegin{
+        increment();
+        increment();
+    }
+
+   writeSum();
+}

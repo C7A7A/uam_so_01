@@ -1,0 +1,20 @@
+binarysem sem;
+int sum = 0;
+
+void increm(){
+    int i;
+    for(i = 0; i < 5; i++){
+    wait(sem);
+        sum++;
+    signal(sem);
+    }
+    
+}
+
+main(){
+    initialsem(sem, 1);
+    cobegin{
+        increm(); increm(); increm(); increm(); increm();
+    }
+    cout << sum << "\n";
+}

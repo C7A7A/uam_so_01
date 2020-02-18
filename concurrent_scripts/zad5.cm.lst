@@ -1,0 +1,8 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad5.cm.save  Fri Dec  6 16:19:01 2019
+ line  pc
+   1    0  semaphore sem; 
+   2    0  int *liczba1;
+Error near '*', line 2 of file zad5.cm.save:
+**   syntax error 
+Because of 1 error the PCODE file will not execute

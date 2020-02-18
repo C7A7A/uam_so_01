@@ -1,0 +1,23 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad4.cm  Fri Nov 22 12:42:49 2019
+ line  pc
+   1    0  binarysem sem;
+   2    0  int sum = 0;
+   3    0  
+   4    0  void increm(){
+   5    0      int i;
+   6    0      for(i = 0; i < 5; i++){
+   7   14      wait(sem);
+   8   16          sum++;
+   9   21      signal(sem);
+  10   23      }
+  11   24      
+  12   24  }
+  13   25  
+  14   25  main(){
+  15   26      initialsem(sem, 1);
+  16   29      cobegin{
+  17   30          increm(); increm(); increm(); increm(); increm();
+  18   45      }
+  19   46      cout << sum << "\n";
+  20   49  }

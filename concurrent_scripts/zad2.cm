@@ -1,0 +1,15 @@
+int sum = 0;
+
+void increm(){
+    int i;
+    for(i = 0; i < 5; i++){
+        sum++;
+    }
+}
+
+main(){
+    cobegin{
+        increm(); increm();
+    }
+    cout << sum << "\n";
+}

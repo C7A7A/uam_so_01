@@ -1,0 +1,23 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad3.cm  Fri Nov 22 12:38:57 2019
+ line  pc
+   1    0  binarysem print_semaphore;
+   2    0  
+   3    0  void hello (char id) 
+   4    0  {
+   5    0      wait(print_semaphore);
+   6    2      cout << "Hi! I am a process!" << endl; 
+   7    4      cout << "My ID is: " << id << endl;
+   8    8      cout << "Bye!" << endl;
+   9   10      signal(print_semaphore);
+  10   12  }
+  11   13  
+  12   13  main() 
+  13   14  {
+  14   14      initialsem(print_semaphore,1);
+  15   17      cobegin  { 
+  16   18          hello('A'); hello('B'); hello('C');
+  17   30      } 
+  18   31  
+  19   31      cout << "All processes finished" << endl; 
+  20   33  }

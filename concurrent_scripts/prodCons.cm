@@ -1,0 +1,49 @@
+semaphore fullSem;
+semaphore emptySem;
+
+const int N = 10;
+int buffer[N];
+int write_pos = 0;
+int read_pos = 0;
+
+void queue_add(int item)
+{
+    buffer[write_pos] = item;
+    write_pos = (write_pos + 1) % N;
+}
+
+int queue_get()
+{
+    int item;
+    item = buffer[read_pos];
+    read_pos = (read_pos + 1) % N;
+    return item;
+}
+
+void prod(){
+    int i;
+    for(i = 0; i < 50; i++){
+        wait(emptySem);
+            queue_add(i);
+        signal(fullSem);
+    }
+
+}
+
+void cons(){
+    int i, x;
+    for(i = 0; i < 50; i++){
+        wait(fullSem);
+            cout << queue_get() << endl;
+        signal(emptySem);
+    }
+}
+
+int main(){
+    initialsem(fullSem, 0);
+    initialsem(emptySem, N);
+    cobegin{
+        prod(); cons();
+    }
+
+}

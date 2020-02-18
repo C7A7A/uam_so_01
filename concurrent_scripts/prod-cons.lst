@@ -1,0 +1,37 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: prod-cons.cm  Fri Nov 29 00:30:14 2019
+ line  pc
+   1    0  semaphore produkuj;
+   2    0  semaphore konsumuj;
+   3    0  int produkt[10];
+   4    0  
+   5    0  producent(){
+++ Warning: Type of function producent defaults to int
+   6    0  	int licznik = 0;
+   7    3  	while(true){
+Error near 'true', line 7 of file prod-cons.cm:
+**   Undeclared identifier 'true' at level 1 
+   8    4  		wait(produkuj);
+   9    6  		produkt[licznik%10] = random(20);
+  10   14  		licznik++;
+  11   19  		signal(konsumuj);
+  12   21  	}
+  13   22  }
+Error near '}', line 13 of file prod-cons.cm:
+**   A non-void function must have at least one RETURN statment 
+  14   23  
+  15   23  konsument(){
+++ Warning: Type of function konsument defaults to int
+  16   23  	int licznik = 0;
+  17   26  	while(true){
+Error near 'true', line 17 of file prod-cons.cm:
+**   Undeclared identifier 'true' at level 1 
+  18   27  		wait(konsumuj);
+  19   29  		cout << produkt[licznik%10] << endl;
+  20   37  		licznik++;
+  21   42  		signal(produkuj);
+  22   44  	}
+  23   45  }
+Error near '}', line 23 of file prod-cons.cm:
+**   A non-void function must have at least one RETURN statment 
+** Error: Compilation aborted.  Too many (4) errors.

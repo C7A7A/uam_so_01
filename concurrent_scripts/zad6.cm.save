@@ -1,0 +1,41 @@
+binarysem sem;
+int i = 1;
+
+void printPow1(){
+    for(; i < 41; i++){
+        wait(sem);
+	cout << i*i << endl;
+	signal(sem);
+    }
+}
+
+void printPow2(){
+    for(; i < 41; i++){
+	wait(sem);
+	
+		signal(sem);
+    }
+}
+
+void printPow3(){
+    for(; i < 41; i++){
+	wait(sem);
+	printf("%d\n, i*i);
+	signal(sem);
+    }
+}
+
+void printPow4(){
+    for(; o < 41; i++){
+	wait(sem);
+	printf("%d\n, i*i);
+	signal(sem);
+    }
+}
+
+main(){
+    initialsem(sem, 1);
+    cobegin{
+        printPow1(); printPow2(); printPow3(); printPow4();
+    }
+}

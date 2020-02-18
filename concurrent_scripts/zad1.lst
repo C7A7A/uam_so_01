@@ -1,0 +1,18 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad1.cm  Fri Nov 22 12:19:46 2019
+ line  pc
+   1    0  void hello (char id) 
+   2    0  {
+   3    0      cout << "Hi! I am a process!" << endl; 
+   4    2      cout << "My ID is: " << id << endl;
+   5    6      cout << "Bye!" << endl;
+   6    8  }
+   7    9  
+   8    9  main() 
+   9   10  {
+  10   10      cobegin  { 
+  11   11          hello('A'); hello('B'); hello('C');
+  12   23      } 
+  13   24  
+  14   24      cout << "All processes finished" << endl; 
+  15   26  }

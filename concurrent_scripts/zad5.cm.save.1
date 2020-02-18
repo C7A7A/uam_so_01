@@ -1,0 +1,22 @@
+semaphore sem; 
+int *liczba1, *liczba2; 
+
+void randomNumber(int x){ 
+    x = random(100); 
+    signal(sem); 
+} 
+
+void printSum(){ 
+    wait(sem); 
+    wait(sem); 
+    cout << liczba1 + liczba2 << endl; 
+} 
+
+main(){ 
+    initialsem(sem,0); 
+    cobegin{ 
+        randomNumber(liczba1); randomNumber(liczba2); printSum(); 
+    } 
+
+} 
+

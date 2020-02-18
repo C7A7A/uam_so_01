@@ -1,0 +1,18 @@
+binarysem s = 1;
+binarysem t = 0;
+
+void a(){
+	wait(s);
+	cout << "a" << endl;
+	signal(t);
+}
+
+void b(){
+	wait(t);
+	cout << "b" << endl;
+	signal(s);
+}
+
+void main(){
+	cobegin { a(); b(); }
+}

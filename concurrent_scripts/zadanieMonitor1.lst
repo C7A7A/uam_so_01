@@ -1,0 +1,41 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zadanieMonitor1.cm  Fri Dec  6 12:22:01 2019
+ line  pc
+   1    0  monitor monitor_with_variables
+   2    0  {
+   3    0      int sum;
+   4    0      void incrementMonitor(){
+   5    1          int i;
+   6    1          for(i = 0; i < 5; i++){
+   7   15              sum++;
+   8   20          }
+   9   21      }
+  10   23  
+  11   23      void writeSumMonitor(){
+  12   24          cout << sum << endl;
+  13   27      }
+  14   29      // blok init musi być zawsze na samym końcu kodu monitora!
+  15   29      init 
+  16   29      { 
+  17   29          sum = 0;
+  18   32      } 
+  19   33  }
+  20   33  
+  21   33  void increment(){
+  22   33      incrementMonitor(); 
+  23   36  }
+  24   37  
+  25   37  void writeSum(){
+  26   37     writeSumMonitor();
+  27   40  }
+  28   41  
+  29   41  int main()
+  30   42  {
+  31   42      int sum;
+  32   42      cobegin{
+  33   43          increment();
+  34   46          increment();
+  35   49      }
+  36   50  
+  37   50     writeSum();
+  38   53  }

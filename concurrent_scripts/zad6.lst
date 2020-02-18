@@ -1,0 +1,30 @@
+BACI System: C-- to PCODE Compiler in C, 11:30   1 Oct 2012
+Source file: zad6.cm  Thu Dec  5 16:16:44 2019
+ line  pc
+   1    0  binarysem sem;
+   2    0  binarysem semCon;
+   3    0  int i = 1;
+   4    0  
+   5    0  void printPow(int x){
+   6    0      int counter = 0;
+   7    3      for(; i < 41;){
+   8    8          wait(sem);
+   9   10  	if(i < 41){
+  10   14  	    cout << i*i << endl;
+  11   19  	    counter++;
+  12   24  	}
+  13   24  	i++;
+  14   29  	signal(sem);
+  15   31      }
+  16   32      wait(semCon);
+  17   34      cout << "(" << x << ")Contribution: " << counter << endl;
+  18   41      signal(semCon);
+  19   43  }
+  20   44  
+  21   44  main(){
+  22   45      initialsem(sem, 1);
+  23   48      initialsem(semCon, 1);
+  24   51      cobegin{
+  25   52          printPow(1); printPow(2); printPow(3); printPow(4);
+  26   68      }
+  27   69  }

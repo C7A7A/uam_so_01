@@ -1,0 +1,83 @@
+monitor sum_two_monitor 
+
+{ 
+
+    int values[2]; 
+
+    int num_added; 
+
+    condition cond_all_ready; 
+
+  
+
+    void add_value (int index, int value) 
+
+    { 
+
+        values[index] = value; 
+
+        num_added++; 
+
+  
+
+        if(num_added == 2) 
+
+            signalc(cond_all_ready); 
+
+    } 
+
+    void get_sum () 
+
+    { 
+
+        if(num_added < 2) 
+
+            waitc(cond_all_ready); 
+
+  
+
+        cout << values[0] << " + " << values[1] << " = " << values[0]+values[1] << endl; 
+
+    } 
+
+    init { num_added = 0; } 
+
+} 
+
+  
+
+void process_gen(int index)  
+
+{ 
+
+    int number; 
+
+    number = random(100); 
+
+    add_value(index, number); 
+
+} 
+
+  
+
+void process_sum()  
+
+{ 
+
+    get_sum(); 
+
+} 
+
+  
+
+main()  
+
+{ 
+
+    cobegin  {  
+
+        process_gen(0); process_gen(1); process_sum(); 
+
+    }  
+
+} 
